@@ -9,6 +9,7 @@ sys.path.append('/home/vchaska1/protobuf/protobuf-3.5.1/python')
 import bank_pb2
 branhList = []
 initcount = 0
+ 
 
 if __name__ == '__main__':
 	
@@ -43,3 +44,7 @@ if __name__ == '__main__':
                     		s.sendall(pickle.dumps(message))
                     		s.close()
 			initcount = 1
+							
+
+
+
