@@ -10,5 +10,5 @@ Compilation of the code:
 Tasks by the group members:
 	(1)Mehul Bhuva:Implementation of the Markers  Retrieve snapshot part and debugging.
 	(2)Akshata Nayak:Implementation of the InitSnapshot and Return snapshot part.
-Completion status of the assignment:
+Completion status of the assignment: Completed and tested fully on remote machine
 

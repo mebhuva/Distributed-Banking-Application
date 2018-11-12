@@ -63,7 +63,7 @@ if __name__ == '__main__':
                     		s.sendall(pickle.dumps(message))
                     		s.close()
 			initcount = 1
-		time.sleep(4)
+		time.sleep(10)
 
 
 		logger.debug("Snapshot Id :- " +  str(snapshot_num))
@@ -76,10 +76,10 @@ if __name__ == '__main__':
                 branchMessage.init_snapshot.CopyFrom(InitSnapshotMsg)
 		branchsocket.sendall(pickle.dumps(branchMessage))
 		branchsocket.close()
-		time.sleep(4)
+		time.sleep(10)
 
 
-                totalCurrentBalance = 0 
+                totalCurrentBalance = 0
 		for branchobj in branhList:
                 	branches.name = branchobj['name']
                         branches.ip = branchobj['ip']
@@ -104,5 +104,5 @@ if __name__ == '__main__':
 			logger.debug(str(branchobj['name'])+ " : " + str(data.return_snapshot.local_snapshot.balance) + " , " + channel_state)
 			totalCurrentBalance = totalCurrentBalance + data.return_snapshot.local_snapshot.balance
 
-		logger.debug("Total Balance " + str(totalCurrentBalance))
+		#logger.debug("Total Balance " + str(totalCurrentBalance))
 		snapshot_num += 1

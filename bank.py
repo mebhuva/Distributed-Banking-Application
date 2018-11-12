@@ -18,6 +18,7 @@ TOTAL_BALANCE = 0
 moneyTransfer = False
 branchName = ""
 branhList = []
+timeLimit = 0
 
 class Bank(object):
 
@@ -31,6 +32,7 @@ class Bank(object):
 	global branchName
 	global branhList
 	global moneyTransfer
+	global timeLimit
 	while True:
 		logger.debug("Money Transfer.............")
 		logger.debug("Money Transfer Status = "+str(moneyTransfer) +"  Current Branch Balance = "+ str(TOTAL_BALANCE))
@@ -50,7 +52,8 @@ class Bank(object):
                 	branchMessage.transfer.CopyFrom(MoneyTransferMsg)
 			branchsocket.sendall(pickle.dumps(branchMessage))
 			branchsocket.close()
-			time.sleep(random.randrange(1, 5))
+			print "Time limit +++++++ " + str(timeLimit)
+			time.sleep(random.uniform(0, 5))
 
     def SendMarkers(self,snapshot_id):
 	global branhList
@@ -69,11 +72,12 @@ class Bank(object):
                 markerSocket.close()
 	moneyTransfer  = True
 
-    def bankhandle(self,data,branchNameIn,clientsocket):
+    def bankhandle(self,data,branchNameIn,clientsocket,timelimit):
 	global TOTAL_BALANCE
 	global branhList
         global moneyTransfer
 	global branchName
+	global timeLimit
 	branchName = branchNameIn
 	if data.HasField("init_branch") :
 			TOTAL_BALANCE = data.init_branch.balance
@@ -83,6 +87,7 @@ class Bank(object):
 			logger.debug("Branch List initialized .....")
 			logger.debug(branhList)
 			moneyTransfer = True 
+			timeLimit = (timelimit/1000.0)
 			thread = Thread(target = self.MoneyTransfer)
                 	thread.daemon = True
                 	thread.start()
@@ -158,7 +163,7 @@ if __name__ == '__main__':
 	while 1:
         	(clientsocket, address) = serversocket.accept()
 		data = pickle.loads(clientsocket.recv(1024))
-		Bank().bankhandle(data,sys.argv[1],clientsocket)
+		Bank().bankhandle(data,sys.argv[1],clientsocket, int(sys.argv[3]))
 		
 			
 
